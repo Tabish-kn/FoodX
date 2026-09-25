@@ -1,0 +1,54 @@
+name: FoodX Monorepo CI
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+
+jobs:
+  full-stack-validation:
+    name: Full-Stack Quality & Build Verification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: ⚙️ Setup Flutter 3.x
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.7.3'
+          channel: 'stable'
+          cache: true
+
+      - name: 📦 Install NPM Dependencies
+        run: npm ci
+
+      - name: 🔨 Build Shared Packages
+        run: npm run build:packages
+
+      - name: 🗄️ Generate Prisma Client
+        run: npx prisma generate
+
+      - name: 🔍 TypeScript Type Checking
+        run: npm run typecheck
+
+      - name: 🧪 Execute API Core & Route Optimizer Tests
+        run: npm run test:api
+
+      - name: 📱 Resolve Flutter Mobile Dependencies
+        run: |
+          cd apps/mobile
+          flutter pub get
+
+      - name: 📱 Flutter Static Analysis
+        run: |
+          cd apps/mobile
+          flutter analyze

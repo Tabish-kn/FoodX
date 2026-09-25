@@ -1,0 +1,44 @@
+{
+  "name": "foodx-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FoodX - Scalable Food Donation & Food Rescue Platform Monorepo",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:api": "npm --prefix apps/api run dev",
+    "dev:web": "npm --prefix apps/web run dev",
+    "build:packages": "npm --prefix packages/shared-types run build && npm --prefix packages/validation run build && npm --prefix packages/config run build",
+    "build:api": "npm --prefix apps/api run build",
+    "build:web": "npm --prefix apps/web run build",
+    "db:generate": "npx prisma generate",
+    "db:push": "npx prisma db push",
+    "db:seed": "npx ts-node prisma/seed.ts",
+    "test:api": "npm --prefix apps/api test",
+    "lint": "npm --prefix apps/web run lint && npm --prefix apps/api run lint",
+    "typecheck": "npm run build:packages && tsc --project apps/api/tsconfig.json --noEmit && tsc --project apps/web/tsconfig.json --noEmit"
+  },
+  "keywords": [
+    "food-rescue",
+    "food-donation",
+    "nextjs",
+    "flutter",
+    "nestjs",
+    "prisma",
+    "postgresql",
+    "monorepo"
+  ],
+  "author": "FoodX Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "prisma": "^5.10.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.10.2"
+  }
+}
