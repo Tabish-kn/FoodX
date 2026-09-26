@@ -226,10 +226,10 @@ class ProfileView extends StatelessWidget {
             const Text('Grand Palace Hotel & Banquets', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             const Text('FSSAI: 110022998811 • Verified Donor', style: TextStyle(color: Colors.grey, fontSize: 12)),
             const SizedBox(height: 24),
-            ListTile(
-              leading: const Icon(Icons.emoji_events, color: AppTheme.secondaryAmber),
-              title: const Text('Reward Points'),
-              trailing: const Text('6,500 pts', style: TextStyle(fontWeight: FontWeight.bold)),
+            const ListTile(
+              leading: Icon(Icons.emoji_events, color: AppTheme.secondaryAmber),
+              title: Text('Reward Points'),
+              trailing: Text('6,500 pts', style: TextStyle(fontWeight: FontWeight.bold)),
             ),
             ListTile(
               leading: const Icon(Icons.file_download, color: AppTheme.primaryEmerald),
